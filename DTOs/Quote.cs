@@ -28,6 +28,6 @@ namespace StuffMySonSaysApi.DTOs
         public DateOnly DateUttered => _dateUttered;
 
         /// <inheritdoc />
-        string IQuote.QuoteText => _quoteText;
+        public string QuoteText => _quoteText;
     }
 }

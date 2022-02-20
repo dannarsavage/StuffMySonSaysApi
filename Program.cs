@@ -5,6 +5,15 @@ using StuffMySonSaysApi.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new()
+    {
+        Title = builder.Environment.ApplicationName,
+        Version = "v1"
+    });
+});
+
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSingleton<IQuoteRepository, QuoteRepository>();
@@ -14,7 +23,9 @@ builder.Services.Configure <JsonOptions> (options =>
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseSwagger();
+
+//app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/quotes", (IQuoteRepository quoteRepository) => GetAllQuotes(quoteRepository));
 
@@ -39,5 +50,7 @@ IResult GetQuote(int id, IQuoteRepository quoteRepository)
         ? Results.Ok(quote)
         : Results.NotFound("Quote not found");
 }
+
+app.UseSwaggerUI(); 
 
 app.Run();
