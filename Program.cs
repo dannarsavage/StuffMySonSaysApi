@@ -20,20 +20,24 @@ app.MapGet("/quotes", (IQuoteRepository quoteRepository) => GetAllQuotes(quoteRe
 
 app.MapGet("/quotes/{id}", (int id, IQuoteRepository quoteRepository) => GetQuote(id, quoteRepository));
 
+/// <summary>
+/// Get all quotes from the repository and return a result containing that list
+/// </summary>
 IResult GetAllQuotes(IQuoteRepository quoteRepository)
 {
     return Results.Ok(quoteRepository.GetAll());
 }
 
+/// <summary>
+/// Get one quote from the repository based on an ID and return a reasonable result
+/// </summary>
 IResult GetQuote(int id, IQuoteRepository quoteRepository)
 {
     var quote = quoteRepository.GetQuote(id);
 
     return (quote != null) 
         ? Results.Ok(quote)
-        : Results.NotFound(null);
+        : Results.NotFound("Quote not found");
 }
 
 app.Run();
-
-
