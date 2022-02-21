@@ -1,3 +1,5 @@
-#Stuff My Son Says API
+# Stuff My Son Says API
+An API serving goofy things my son says
 
-This will eventually be an API serving goofy things my son sayss
+## Environment
+Produced in Visual Studio 2022 on Windows
