@@ -5,29 +5,35 @@ namespace StuffMySonSaysApi.DTOs
     /// <inheritdoc />
     public class Quote : IQuote
     {
-        private readonly int _id;
-        private readonly string _quoteText;
-        private readonly DateOnly _dateUttered;
-
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="utteredDate">Populates <see cref="Quote.DateUttered"/></param>
+        /// <param name="ageWhenUttered">Populates <see cref="Quote.AgeWhenUttered"/></param>
         /// <param name="quote">Populates <see cref="Quote.QuoteText"/></param>
-        public Quote(int id, DateOnly utteredDate, string quoteText)
+        /// <param name="beforeAction">Populates <see cref="Quote.BeforeAction"/></param>
+        /// <param name="afterAction">Populates <see cref="Quote.AfterAction"/></param>
+        public Quote(int id, int ageWhenUttered, string quoteText, string beforeAction = "", string afterAction = "")
         {
-            _id = id;
-            _dateUttered = utteredDate;
-            _quoteText = quoteText;
+            Id = id;
+            AgeWhenUttered = ageWhenUttered;
+            QuoteText = quoteText;
+            BeforeAction = beforeAction;
+            AfterAction = afterAction;
         }
 
         /// <inheritdoc />
-        public int Id => _id;
+        public int Id { get; }
 
         /// <inheritdoc />
-        public DateOnly DateUttered => _dateUttered;
+        public string QuoteText { get; }
 
         /// <inheritdoc />
-        public string QuoteText => _quoteText;
+        public int AgeWhenUttered { get; }
+
+        /// <inheritdoc />
+        public string BeforeAction { get; }
+
+        /// <inheritdoc />
+        public string AfterAction { get; }
     }
 }

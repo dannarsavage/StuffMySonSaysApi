@@ -16,8 +16,18 @@
         string QuoteText { get; }
 
         /// <summary>
-        /// When my son said it
+        /// Age when my son said it
         /// </summary>
-        DateOnly DateUttered { get; }
+        int AgeWhenUttered { get; }
+
+        /// <summary>
+        /// Thing that happened before my son said it
+        /// </summary>
+        string BeforeAction { get; }
+
+        /// <summary>
+        /// Thing that happened after my son said it
+        /// </summary>
+        string AfterAction { get; }
     }
 }

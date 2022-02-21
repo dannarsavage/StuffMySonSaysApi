@@ -17,5 +17,11 @@
         /// </summary>
         /// <returns>All quotes in the repository</returns>
         IEnumerable<IQuote> GetAll();
+
+        /// <summary>
+        /// Get a single <see cref="IQuote"/> randomly
+        /// </summary>
+        /// <returns><see cref="IQuote"/> chosen randomly</returns>
+        IQuote GetRandomQuote();
     }
 }

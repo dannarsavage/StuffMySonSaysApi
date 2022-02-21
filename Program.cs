@@ -1,28 +1,31 @@
-using Microsoft.AspNetCore.Http.Json;
 using StuffMySonSaysApi.Contracts.Interfaces;
 using StuffMySonSaysApi.Repositories;
-using StuffMySonSaysApi.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new()
+builder.Services.AddCors(options =>
     {
-        Title = builder.Environment.ApplicationName,
-        Version = "v1"
-    });
-});
-
-builder.Services
+        options.AddDefaultPolicy(builder =>
+            {
+                builder.WithOrigins("https://localhost",
+                    "http://localhost",
+                    "https://localhost:3000",
+                    "http://localhost:3000")
+                ;
+            });
+    })
+    .AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new()
+        {
+            Title = builder.Environment.ApplicationName,
+            Version = "v1"
+        });
+    })
     .AddEndpointsApiExplorer()
     .AddSingleton<IQuoteRepository, QuoteRepository>();
 
-builder.Services.Configure <JsonOptions> (options =>
-         options.SerializerOptions.Converters.Add(new DateOnlyConverter()));
-
 var app = builder.Build();
-
+app.UseCors();
 app.UseSwagger();
 
 //app.MapGet("/", () => "Hello World!");
@@ -31,12 +34,22 @@ app.MapGet("/quotes", (IQuoteRepository quoteRepository) => GetAllQuotes(quoteRe
 
 app.MapGet("/quotes/{id}", (int id, IQuoteRepository quoteRepository) => GetQuote(id, quoteRepository));
 
+app.MapGet("/quotes/random", (IQuoteRepository quoteRepository) => GetRandomQuote(quoteRepository));
+
 /// <summary>
 /// Get all quotes from the repository and return a result containing that list
 /// </summary>
 IResult GetAllQuotes(IQuoteRepository quoteRepository)
 {
     return Results.Ok(quoteRepository.GetAll());
+}
+
+/// <summary>
+/// Get a random quote from the repository and return a result containing that quote
+/// </summary>
+IResult GetRandomQuote(IQuoteRepository quoteRepository)
+{
+    return Results.Ok(quoteRepository.GetRandomQuote());
 }
 
 /// <summary>
@@ -50,7 +63,6 @@ IResult GetQuote(int id, IQuoteRepository quoteRepository)
         ? Results.Ok(quote)
         : Results.NotFound("Quote not found");
 }
-
 app.UseSwaggerUI(); 
 
 app.Run();
