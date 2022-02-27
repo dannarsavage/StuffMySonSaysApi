@@ -10,9 +10,12 @@ namespace StuffMySonSaysApi.Repositories
         /// <summary>
         /// This just news up a list of quotes but in the real world of course this should use real persistence like a database
         /// </summary>
-        public QuoteRepository()
+        /// <param name="quotes">Injectable collection of quotes for unit testing</param>
+        public QuoteRepository(IEnumerable<IQuote>? quotes = null)
         {
-            _quotes = new List<IQuote>
+            _quotes = (quotes != null) 
+                ? quotes.ToList() 
+                : new List<IQuote>
             {
                 new Quote(1,    2,  "Beeyah!", "[Grabs a handful of spaghetti]"),
                 new Quote(2,    3,  "A peloton is my favorite kind of 'ton!"),
@@ -21,10 +24,10 @@ namespace StuffMySonSaysApi.Repositories
                 new Quote(5,    6,  "I like soup"),
                 new Quote(6,    7,  "I like soup"),
                 new Quote(7,    8,  "I like soup"),
-                new Quote(7,    9,  "I like soup"),
-                new Quote(7,   10,  "I like soup"),
-                new Quote(7,   13,  "I like soup"),
-                new Quote(7,   15,  "I like soup")
+                new Quote(8,    9,  "I like soup"),
+                new Quote(9,   10,  "I like soup"),
+                new Quote(10,   13,  "I like soup"),
+                new Quote(11,   15,  "I like soup")
             };
         }
 
