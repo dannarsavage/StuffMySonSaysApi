@@ -6,8 +6,20 @@ using StuffMySonSaysApi.Contracts.Interfaces;
 
 namespace StuffMySonSaysApi.Tests.Repositories
 {
+    /// <summary>
+    /// Unit tests for <see cref="QuoteRepository"/>
+    /// </summary>
     public class QuoteRepositoryTests
     {
+        /// <summary>
+        /// Utility for quickly mocking a <see cref="IQuote"/>
+        /// </summary>
+        /// <param name="quoteId"><see cref="IQuote.Id"/> to be returned</param>
+        /// <param name="ageWhenUttered"><see cref="IQuote.AgeWhenUttered"/> to be returned</param>
+        /// <param name="quoteText"><see cref="IQuote.QuoteText"/> to be returned</param>
+        /// <param name="beforeAction"><see cref="IQuote.BeforeAction"/> to be returned</param>
+        /// <param name="afterAction"><see cref="IQuote.AfterAction"/> to be returned</param>
+        /// <returns>A simple mocked <see cref="IQuote"/></returns>
         private Mock<IQuote> SetupMockQuote(
             int? quoteId = null,
             int? ageWhenUttered = null,
@@ -25,7 +37,7 @@ namespace StuffMySonSaysApi.Tests.Repositories
         }
 
         /// <summary>
-        /// GetRandomQuote() should always return a quote
+        /// <see cref="QuoteRepository.GetRandomQuote()"/> should always return a quote
         /// </summary>
         [Fact]
         public void GetRandomQuoteReturnsQuote()
@@ -48,7 +60,7 @@ namespace StuffMySonSaysApi.Tests.Repositories
         }
 
         /// <summary>
-        /// GetQuote() should returns the correct quote
+        /// <see cref="QuoteRepository.GetQuote(int)"/> should return null when given an ID that doesn't exist in the repository
         /// </summary>
         [Fact]
         public void GetQuoteWithBadIdReturnsNull()
@@ -71,7 +83,7 @@ namespace StuffMySonSaysApi.Tests.Repositories
         }
 
         /// <summary>
-        /// GetQuote() should returns the correct quote
+        /// <see cref="QuoteRepository.GetQuote(int)"/> should return the correct quote
         /// </summary>
         [Theory]
         [InlineData(1)]
