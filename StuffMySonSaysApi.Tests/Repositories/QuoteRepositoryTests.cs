@@ -60,10 +60,10 @@ namespace StuffMySonSaysApi.Tests.Repositories
         }
 
         /// <summary>
-        /// <see cref="QuoteRepository.GetQuote(int)"/> should return null when given an ID that doesn't exist in the repository
+        /// <see cref="QuoteRepository.GetQuote(int)"/> should throw <see cref="KeyNotFoundException"/> when given an ID that doesn't exist in the repository
         /// </summary>
         [Fact]
-        public void GetQuoteWithBadIdReturnsNull()
+        public void GetQuoteWithBadIdThrowsKeyNotFoundException()
         {
             var injectedQuotes = new List<IQuote>
             {
@@ -77,9 +77,7 @@ namespace StuffMySonSaysApi.Tests.Repositories
             };
             var sut = new QuoteRepository(injectedQuotes);
 
-            var result = sut.GetQuote(9);
-
-            Assert.Null(result);
+            Assert.Throws<KeyNotFoundException>(() => sut.GetQuote(9));
         }
 
         /// <summary>

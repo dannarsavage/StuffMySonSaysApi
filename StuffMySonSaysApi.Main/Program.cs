@@ -57,11 +57,15 @@ IResult GetRandomQuote(IQuoteRepository quoteRepository)
 /// </summary>
 IResult GetQuote(int id, IQuoteRepository quoteRepository)
 {
-    var quote = quoteRepository.GetQuote(id);
-
-    return (quote != null) 
-        ? Results.Ok(quote)
-        : Results.NotFound("Quote not found");
+    try
+    {
+        var quote = quoteRepository.GetQuote(id);
+        return Results.Ok(quote);
+    }
+    catch (KeyNotFoundException)
+    {
+        return Results.NotFound("Quote not found");
+    }
 }
 app.UseSwaggerUI(); 
 
