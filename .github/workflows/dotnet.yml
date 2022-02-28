@@ -23,9 +23,9 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-#    - name: Archive API build
-#      uses: actions/upload-artifact@v2
-#      with:
-#        name: code-coverage-report
-#        path: StuffMySonSaysApi.Main/bin/Debug/net6.0/*.*
-#        retention-days: 8
+    - name: Archive API build
+      uses: actions/upload-artifact@v2
+      with:
+        name: API build products
+        path: StuffMySonSaysApi.Main/bin/Debug/net6.0/*.*
+        retention-days: 8
