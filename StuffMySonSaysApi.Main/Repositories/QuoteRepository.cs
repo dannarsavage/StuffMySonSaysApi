@@ -31,7 +31,7 @@ namespace StuffMySonSaysApi.Repositories
         /// <param name="quotes">Injectable collection of quotes for unit testing</param>
         public QuoteRepository(IEnumerable<IQuote>? quotes = null)
         {
-            if (quotes != null) _quotes = quotes.ToList();
+            if (quotes != null && quotes.Any()) _quotes = quotes.ToList();
         }
 
         /// <inheritdoc />
@@ -53,7 +53,8 @@ namespace StuffMySonSaysApi.Repositories
         public IQuote GetRandomQuote()
         {
             var random = new Random();
-            return _quotes[random.Next(_quotes.Count)];
+            var randomIndex = random.Next(_quotes.Count);
+            return _quotes[randomIndex];
         }
     }
 }
